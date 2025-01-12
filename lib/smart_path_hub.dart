@@ -1,22 +1,43 @@
 library smart_path_hub;
+
 import 'package:app_links/app_links.dart';
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:flutter/cupertino.dart';
+import 'package:smart_path_hub/smart_path_hub_utils.dart';
+
+import 'deep_link_path_data.dart';
+
+class SmartPathHub {
+  static const _smartPathHubScheme = "https";
+  static const smartPathHubDomain = "https://gstech.mtgofa.com/";
+  static const smartPathHubPath = "deeplink";
+  static const _smartPathHubHost = "gstech.mtgofa.com";
+  final appLinks = AppLinks();
+
+  void init(ValueNotifier<DeepLinkPathData> listenCallback) {
+    appLinks.uriLinkStream.listen((uri) {
+      var deepLinkPathData = DeepLinkPathData();
+      deepLinkPathData.fullUri = uri;
+      listenCallback.value = deepLinkPathData;
+    });
+  }
+
+  Future<DeepLinkPathData> createDeepLink(
+      {Map<String, dynamic>? uriData}) async {
+    Map<String, String> queryParameters = {};
+    uriData?.forEach((key, value) {
+      if (value != null) {
+        queryParameters[key] = "$value";
+      }
+    });
+
+    Uri uri = Uri(
+      scheme: _smartPathHubScheme,
+      host: _smartPathHubHost,
+      path: encodeUrlPath(queryParameters: queryParameters),
+    );
+    var deepLinkPathData = DeepLinkPathData();
+    deepLinkPathData.fullUri = uri;
+
+    return deepLinkPathData;
+  }
 }
-
-class SmartPathHub{
-
-void init(){
-  final appLinks = AppLinks(); // AppLinks is singleton
-
-// Subscribe to all events (initial link and further)
-  final sub = appLinks.uriLinkStream.listen((uri) {
-/*    printLog("appLinks data is $uri");
-    showMessage("appLinks data is $uri");*/
-  });
-}
-
-}
-
