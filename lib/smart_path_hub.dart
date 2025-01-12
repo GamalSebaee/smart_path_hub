@@ -7,10 +7,8 @@ import 'package:smart_path_hub/smart_path_hub_utils.dart';
 import 'deep_link_path_data.dart';
 
 class SmartPathHub {
-  static const _smartPathHubScheme = "https";
-  static const smartPathHubDomain = "https://gstech.mtgofa.com/";
-  static const smartPathHubPath = "deeplink";
-  static const _smartPathHubHost = "gstech.mtgofa.com";
+  static const smartPathHubScheme = "https";
+  static const smartPathHubHost = "gstech.mtgofa.com";
   final appLinks = AppLinks();
 
   void init(ValueNotifier<DeepLinkPathData> listenCallback) {
@@ -31,8 +29,8 @@ class SmartPathHub {
     });
 
     Uri uri = Uri(
-      scheme: _smartPathHubScheme,
-      host: _smartPathHubHost,
+      scheme: smartPathHubScheme,
+      host: smartPathHubHost,
       path: encodeUrlPath(queryParameters: queryParameters),
     );
     var deepLinkPathData = DeepLinkPathData();

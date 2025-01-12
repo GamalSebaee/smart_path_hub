@@ -1,29 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:smart_path_hub/smart_path_hub.dart';
-import 'package:smart_path_hub/smart_path_hub_utils.dart';
 
 void main() {
-  test('TestUriEncode', () {
+  test('TestUriEncode', () async{
     final smartPathHub = SmartPathHub();
-    smartPathHub.createDeepLink(uriData: {
+    Map<String,dynamic> queryPar={};
+   var data= await smartPathHub.createDeepLink(uriData: {
       "videoDetails": 40,
       "doctorId":10
-    }).then((value) => {
-      print("urlData ${value.shareableUri}"),
-      print("urlData ${value.privateUri}"),
-      print("urlData ${value.uriData}"),
     });
-
-
-
-   /* decodedUrl(
-      decodedValue: "https://gstech.mtgofa.com/ZGVlcGxpbms/dmlkZW9EZXRhaWxzPTQw"
-    );*/
-    //https://gstech.mtgofa.com/ZGVlcGxpbms/dmlkZW9EZXRhaWxzPTQw
-    /*  final calculator = Calculator();
-    expect(calculator.addOne(2), 3);
-    expect(calculator.addOne(-7), -6);
-    expect(calculator.addOne(0), 1);*/
+    debugPrint("shareableUri ${data.printString}");
+    queryPar=data.uriData;
+    expect(queryPar, {
+      "videoDetails": '40',
+      "doctorId":'10'
+    });
   });
 }

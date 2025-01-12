@@ -15,4 +15,16 @@ class DeepLinkPathData {
   set fullUri(Uri value) {
     _fullUri = value;
   }
+
+  String get printString => '_fullUri => $_fullUri\n'
+      'privateUri => $privateUri\n'
+      'shareableShortUri => $shareableShortUri\n'
+      'shareableUri => $shareableUri\n'
+      'uriData => $uriData\n'
+      'shareableUri => $shareableUri';
+
+  @override
+  String toString() {
+    return 'DeepLinkPathData{_fullUri: $_fullUri}';
+  }
 }
