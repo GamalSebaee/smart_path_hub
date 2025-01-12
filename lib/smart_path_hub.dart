@@ -9,10 +9,10 @@ import 'deep_link_path_data.dart';
 class SmartPathHub {
   static const smartPathHubScheme = "https";
   static const smartPathHubHost = "gstech.mtgofa.com";
-  final appLinks = AppLinks();
+  final _appLinks = AppLinks();
 
-  void init(ValueNotifier<DeepLinkPathData> listenCallback) {
-    appLinks.uriLinkStream.listen((uri) {
+  void init({required ValueNotifier<DeepLinkPathData> listenCallback}) {
+    _appLinks.uriLinkStream.listen((uri) {
       var deepLinkPathData = DeepLinkPathData();
       deepLinkPathData.fullUri = uri;
       listenCallback.value = deepLinkPathData;
