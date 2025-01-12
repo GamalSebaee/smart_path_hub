@@ -11,11 +11,11 @@ class SmartPathHub {
   static const smartPathHubHost = "gstech.mtgofa.com";
   final _appLinks = AppLinks();
 
-  void init({required ValueNotifier<DeepLinkPathData> listenCallback}) {
+  void init({required ValueChanged<DeepLinkPathData> listenCallback}) {
     _appLinks.uriLinkStream.listen((uri) {
       var deepLinkPathData = DeepLinkPathData();
       deepLinkPathData.fullUri = uri;
-      listenCallback.value = deepLinkPathData;
+      listenCallback(deepLinkPathData);
     });
   }
 
